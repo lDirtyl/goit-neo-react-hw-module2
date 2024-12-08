@@ -1,8 +1,10 @@
+import { useState } from "react";
+import Notification from "./components/Notification/Notification.jsx";
+
 import Title from "./components/Description/Description.jsx";
 import Options from "./components/Options/Options.jsx";
 import Feedback from "./components/Feedback/Feedback.jsx";
 import "./App.css";
-import { useState } from "react";
 
 function App() {
   const [feedback, setFeedback] = useState({
@@ -18,16 +20,18 @@ function App() {
     }));
   };
 
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+
   return (
     <>
       <div>
-        <h1>Sip Happens Café</h1>
-        <h2>
-          Please leave your feedback about our service by selecting one of the
-          options below.
-        </h2>
+        <Title />
         <Options onFeedback={updateFeedback} />
-        <Feedback feedback={feedback} />
+        {totalFeedback > 0 ? (
+          <Feedback feedback={feedback} total={totalFeedback} />
+        ) : (
+          <Notification message="No feedback given yet." />
+        )}
       </div>
     </>
   );
