@@ -10,14 +10,25 @@ function App() {
     neutral: 0,
     bad: 0,
   });
+
+  const updateFeedback = (type) => {
+    setFeedback((prevFeedback) => ({
+      ...prevFeedback,
+      [type]: prevFeedback[type] + 1,
+    }));
+  };
+
   return (
     <>
-      <Title />
-      <Options>Good</Options>
-      <Options>Neutral</Options>
-      <Options>Bad</Options>
-
-      <Feedback>Good</Feedback>
+      <div>
+        <h1>Sip Happens Café</h1>
+        <h2>
+          Please leave your feedback about our service by selecting one of the
+          options below.
+        </h2>
+        <Options onFeedback={updateFeedback} />
+        <Feedback feedback={feedback} />
+      </div>
     </>
   );
 }
