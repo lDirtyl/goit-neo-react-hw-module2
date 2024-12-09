@@ -14,13 +14,16 @@ function App() {
 
   useEffect(() => {
     const storedFeedback = localStorage.getItem("feedback");
-    if (storedFeedback) {
+    if (storedFeedback !== null) {
       setFeedback(JSON.parse(storedFeedback));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("feedback", JSON.stringify(feedback));
+    const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+    if (totalFeedback > 0) {
+      localStorage.setItem("feedback", JSON.stringify(feedback));
+    }
   }, [feedback]);
 
   const updateFeedback = (type) => {
